@@ -1,0 +1,6 @@
+
+kubectl apply -f api-configmap.yaml
+
+kubectl apply -f api-deployment.yaml
+
+kubectl proxy & 
