@@ -23,3 +23,21 @@ spec:
             configMapKeyRef:
               name: synergychat-api-configmap
               key: API_PORT
+        - name: CRAWLER_BASE_URL               # Add this line
+          valueFrom:
+            configMapKeyRef:
+              name: synergychat-api-configmap
+              key: CRAWLER_BASE_URL
+        - name: API_DB_FILEPATH           # Add this section
+          valueFrom:
+            configMapKeyRef:
+              name: synergychat-api-configmap
+              key: API_DB_FILEPATH
+        volumeMounts:
+        - name: synergychat-api-volume
+          mountPath: /persist
+      volumes:
+      - name: synergychat-api-volume
+        persistentVolumeClaim:
+          claimName: synergychat-api-pvc
+      

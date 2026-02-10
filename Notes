@@ -3,4 +3,38 @@ kubectl apply -f api-configmap.yaml
 
 kubectl apply -f api-deployment.yaml
 
+kubectl delete pod synergychat-api-567665f94-cjcjq
+
+
 kubectl proxy & 
+
+minikube start
+minikube start --extra-config "apiserver.cors-allowed-origins=["http://boot.dev"]"
+
+kubectl create deployment synergychat-web --image=docker.io/bootdotdev/synergychat-web:latest
+kubectl get pods
+kubectl port-forward synergychat-web-76dd6b65c5-kgl5x 8080:8080
+kubectl apply -f api-configmap.yaml
+kubectl apply -f api-deployment.yaml
+kubectl apply -f crawler-configmap.yaml
+kubectl apply -f crawler-deployment.yaml
+kubectl apply -f web-service.yaml
+kubectl apply -f crawler-service.yaml
+kubectl apply --server-side -f https://github.com/envoyproxy/gateway/releases/download/v1.5.1/install.yaml
+kubectl apply -f app-gatewayclass.yaml
+kubectl apply -f app-gateway.yaml
+kubectl apply -f web-httproute.yaml
+kubectl apply -f api-httproute.yaml
+
+ADD
+127.0.0.1        synchat.internal
+127.0.0.1        synchatapi.internal
+to /etc/hosts
+
+dest
+minikube tunnel -c
+
+
+kubectl describe pod kube-apiserver-minikube -n kube-system | grep cors-allowed-origins
+
+
